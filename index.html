@@ -48,7 +48,7 @@
 		<div id="wrapper" class="container">
 			<!--<section class="navbar main-menu">-->
 				<!--<div class="navbar-inner main-menu">				-->
-					<!--<a href="home.html" class="logo pull-left"><img src="themes/images//logo.png" class="site_logo" alt=""></a>-->
+					<!--<a href="home.php" class="logo pull-left"><img src="themes/images//logo.png" class="site_logo" alt=""></a>-->
 					<!--<nav id="menu" class="pull-right">-->
 						<!--<ul>-->
 							<!--<li><a href="./products.html">Woman</a>					-->
@@ -81,19 +81,19 @@
 				<div class="row">
 					<div class="span5">					
 						<h4 class="title"><span class="text"><strong>Login</strong> Form</span></h4>
-						<form action="#" method="post">
+						<form action="php/login.php" method="post">
 							<input type="hidden" name="next" value="/">
 							<fieldset>
 								<div class="control-group">
 									<label class="control-label">Username</label>
 									<div class="controls">
-										<input type="text" placeholder="Enter your username" id="username" class="input-xlarge">
+										<input type="text" placeholder="Enter your username" id="login_username" name="login_username" class="input-xlarge" required>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Username</label>
 									<div class="controls">
-										<input type="password" placeholder="Enter your password" id="password" class="input-xlarge">
+										<input type="password" placeholder="Enter your password" id="login_password" name="login_password" class="input-xlarge" required>
 									</div>
 								</div>
 								<div class="control-group">
@@ -106,24 +106,24 @@
 					</div>
 					<div class="span7">					
 						<h4 class="title"><span class="text"><strong>Register</strong> Form</span></h4>
-						<form action="#" method="post" class="form-stacked">
+						<form action="php/register.php" method="post" class="form-stacked">
 							<fieldset>
 								<div class="control-group">
 									<label class="control-label">Username</label>
 									<div class="controls">
-										<input type="text" placeholder="Enter your username" class="input-xlarge">
+										<input type="text" placeholder="Enter your username" id="reg_username" name="reg_username" class="input-xlarge" required>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Email address:</label>
 									<div class="controls">
-										<input type="password" placeholder="Enter your email" class="input-xlarge">
+										<input type="email" placeholder="Enter your email" id="reg_email" name="reg_email" class="input-xlarge" required>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label">Password:</label>
 									<div class="controls">
-										<input type="password" placeholder="Enter your password" class="input-xlarge">
+										<input type="password" placeholder="Enter your password" id="reg_password" name="reg_password" class="input-xlarge" required>
 									</div>
 								</div>							                            
 								<div class="control-group">
@@ -141,7 +141,7 @@
 					<div class="span3">
 						<h4>Navigation</h4>
 						<ul class="nav">
-							<li><a href="home.html">Homepage</a></li>
+							<li><a href="home.php">Homepage</a></li>
 							<li><a href="./about.html">About Us</a></li>
 							<li><a href="./contact.html">Contac Us</a></li>
 							<li><a href="./cart.html">Your Cart</a></li>
