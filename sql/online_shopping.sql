@@ -31,7 +31,7 @@ USE `online_shopping`;
 --
 
 CREATE TABLE IF NOT EXISTS `manufacturer` (
-  `mid` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `mid` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
   `addresss` varchar(2000) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `manufacturer` (
 --
 
 CREATE TABLE IF NOT EXISTS `products` (
-  `pid` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `pid` int(11) NOT NULL AUTO_INCREMENT,
   `product_name` varchar(100) NOT NULL,
   `photo_1` varchar(500) NOT NULL,
   `photo_2` varchar(500) NOT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
-  `uid` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `uid` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(50) NOT NULL,
