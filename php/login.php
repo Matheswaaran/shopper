@@ -17,7 +17,7 @@
 			$login_res = mysqli_query($db,$login_query);
 			if (mysqli_num_rows($login_res) == 1){
 				$login_arr = mysqli_fetch_array($login_res);
-				$session->UserLogin($login_arr['uid'],$login_arr['email']);
+				$session->UserLogin($login_arr['uid'],$login_arr['email'],$login_arr["username"]);
 				header("location: ../home.php");
 			}else{
 				echo '<script> alert("Invalid credentials");</script>';

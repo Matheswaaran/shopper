@@ -4,13 +4,14 @@
 		function __construct(){
 			if (session_status() == PHP_SESSION_NONE){
 				session_start();
-//				include "config.php";
+				include "config.php";
 			}
 		}
 		
-		public function UserLogin($id,$email){
+		public function UserLogin($id,$email,$username){
 			$_SESSION['user_id'] = $id;
 			$_SESSION['user_email'] = $email;
+			$_SESSION["user_name"] = $username;
 		}
 		
 		public function Logout(){
@@ -36,11 +37,11 @@
 			
 			$db = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_BASE) or die("Cannot connect to db..");
 			try{
-				$ses_sql = mysqli_query($db,"SELECT * FROM users WHERE regno = '$userChk'");
-				$row = mysqli_fetch_array($ses_sql, MYSQL_ASSOC);
-				$user_regno = $row['regno'];
+				$ses_sql = mysqli_query($db,"SELECT * FROM users WHERE username = '$userChk'");
+				$row = mysqli_fetch_array($ses_sql);
+				$user_name = $row['username'];
 				
-				if (!isset($_SESSION['user_id']) && !isset($_SESSION['user_regno']) && !isset($_SESSION['user_year']) && !isset($_SESSION['user_sec'])){
+				if (!isset($_SESSION['user_id']) && !isset($_SESSION['user_email']) && !isset($_SESSION['user_name'])){
 					header("location: index.html");
 				}
 			}catch (exception $e){
