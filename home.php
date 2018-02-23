@@ -5,7 +5,6 @@
 
 	$session->checkSession($_SESSION["user_name"]);
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -44,10 +43,11 @@
 				</div>
 				<div class="span8">
 					<div class="account pull-right">
-						<ul class="user-menu">				
-							<li><?php echo $_SESSION["user_name"]; ?></li>
+						<ul class="user-menu">
+							<li><a href="home.php">Home</a></li>
 							<li><a href="cart.html">Your Order</a></li>
-							<li><a href="php/logout.php">Logout</a></li>					
+							<li><a href="php/logout.php">Logout</a></li>
+							<li>Hi! <?php echo $_SESSION["user_name"]; ?></li>
 						</ul>
 					</div>
 				</div>
