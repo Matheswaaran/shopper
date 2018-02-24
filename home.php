@@ -2,8 +2,11 @@
 	include "php/includes/sessionUtils.php";
 
 	$session = new sessionUtils();
-
 	$session->checkSession($_SESSION["user_name"]);
+
+	$db = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_BASE) or die("Cannot connect to db..");
+	$products = "SELECT * FROM products";
+	$products_res = mysqli_query($db,$products);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -113,7 +116,8 @@
 								<div id="myCarousel" class="myCarousel carousel slide">
 									<div class="carousel-inner">
 										<div class="active item">
-											<ul class="thumbnails">												
+											<ul class="thumbnails">
+												<?php while ($products_arr = mysqli_fetch_array($products_res)) {?>
 												<li class="span3">
 													<div class="product-box">
 														<span class="sale_tag"></span>
@@ -123,31 +127,7 @@
 														<p class="price">$17.25</p>
 													</div>
 												</li>
-												<li class="span3">
-													<div class="product-box">
-														<span class="sale_tag"></span>
-														<p><a href="product_detail.html"><img src="themes/images/ladies/2.jpg" alt="" /></a></p>
-														<a href="product_detail.html" class="title">Quis nostrud exerci tation</a><br/>
-														<a href="products.html" class="category">Quis nostrud</a>
-														<p class="price">$32.50</p>
-													</div>
-												</li>
-												<li class="span3">
-													<div class="product-box">
-														<p><a href="product_detail.html"><img src="themes/images/ladies/3.jpg" alt="" /></a></p>
-														<a href="product_detail.html" class="title">Know exactly turned</a><br/>
-														<a href="products.html" class="category">Quis nostrud</a>
-														<p class="price">$14.20</p>
-													</div>
-												</li>
-												<li class="span3">
-													<div class="product-box">
-														<p><a href="product_detail.html"><img src="themes/images/ladies/4.jpg" alt="" /></a></p>
-														<a href="product_detail.html" class="title">You think fast</a><br/>
-														<a href="products.html" class="category">World once</a>
-														<p class="price">$31.45</p>
-													</div>
-												</li>
+												<?php } ?>
 											</ul>
 										</div>
 										<div class="item">
@@ -183,7 +163,7 @@
 														<a href="products.html" class="category">Quis nostrud</a>
 														<p class="price">$35.50</p>
 													</div>
-												</li>																																	
+												</li>					
 											</ul>
 										</div>
 									</div>							
@@ -271,7 +251,7 @@
 														<a href="products.html" class="category">Quis nostrud</a>
 														<p class="price">$25.20</p>
 													</div>
-												</li>																																	
+												</li>
 											</ul>
 										</div>
 									</div>							

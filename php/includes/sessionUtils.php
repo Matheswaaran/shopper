@@ -14,6 +14,11 @@
 			$_SESSION["user_name"] = $username;
 		}
 		
+		public function adminLogin($id,$username){
+			$_SESSION['admin_id'] = $id;
+			$_SESSION['admin_username'] = $username;
+		}
+		
 		public function Logout(){
 			session_destroy();
 			return true;
@@ -31,10 +36,8 @@
 			return( $qDecoded );
 		}
 		
-		function checkSession($userChk){
-			
+		function checkSession($userChk){	
 //			include "config.php";
-			
 			$db = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_BASE) or die("Cannot connect to db..");
 			try{
 				$ses_sql = mysqli_query($db,"SELECT * FROM users WHERE username = '$userChk'");
@@ -43,6 +46,22 @@
 				
 				if (!isset($_SESSION['user_id']) && !isset($_SESSION['user_email']) && !isset($_SESSION['user_name'])){
 					header("location: index.html");
+				}
+			}catch (exception $e){
+				echo '<script> alert("' . $e . '"");</script>';
+			}
+		}
+		
+		function checkAdminSession($userChk){	
+//			include "config.php";
+			$db = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_BASE) or die("Cannot connect to db..");
+			try{
+				$ses_sql = mysqli_query($db,"SELECT * FROM admins WHERE username = '$userChk'");
+				$row = mysqli_fetch_array($ses_sql);
+				$user_name = $row['username'];
+				
+				if (!isset($_SESSION['admin_id']) && !isset($_SESSION['admin_username'])){
+					header("location: adminLogin.html");
 				}
 			}catch (exception $e){
 				echo '<script> alert("' . $e . '"");</script>';
