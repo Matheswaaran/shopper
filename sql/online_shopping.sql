@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 24, 2018 at 07:26 PM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 7.1.7
+-- Generation Time: Feb 25, 2018 at 11:18 PM
+-- Server version: 10.1.30-MariaDB
+-- PHP Version: 5.6.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -54,12 +54,12 @@ INSERT INTO `admins` (`aid`, `username`, `password`, `created`) VALUES
 CREATE TABLE IF NOT EXISTS `manufacturer` (
   `mid` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(200) NOT NULL,
-  `addresss` varchar(2000) NOT NULL,
+  `address` varchar(2000) NOT NULL,
   `email` varchar(100) NOT NULL,
   `phone_no` bigint(20) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`mid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -70,10 +70,7 @@ CREATE TABLE IF NOT EXISTS `manufacturer` (
 CREATE TABLE IF NOT EXISTS `products` (
   `pid` int(11) NOT NULL AUTO_INCREMENT,
   `product_name` varchar(100) NOT NULL,
-  `photo_1` varchar(500) NOT NULL,
-  `photo_2` varchar(500) NOT NULL,
-  `photo_3` varchar(500) NOT NULL,
-  `photo_4` varchar(500) NOT NULL,
+  `photo` varchar(500) NOT NULL,
   `brand` varchar(100) NOT NULL,
   `product_code` varchar(100) NOT NULL,
   `reward_points` int(11) NOT NULL,
@@ -85,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `color` varchar(100) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -100,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `password` varchar(50) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -10,7 +10,7 @@
 
 		$select_query = "SELECT * FROM manufacturer WHERE name = '$manu_name'";
 		
-		$register_query = "INSERT INTO `manufacturer`(`name`, `addresss`, `email`, `phone_no`) VALUES ('$manu_name','$manu_address','$manu_email','$manu_phnno')";
+		$register_query = "INSERT INTO `manufacturer`(`name`, `address`, `email`, `phone_no`) VALUES ('$manu_name','$manu_address','$manu_email',$manu_phnno)";
 		
 		$db = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_BASE) or die("Cannot Connect...");
 

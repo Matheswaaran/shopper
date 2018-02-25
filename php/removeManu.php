@@ -12,6 +12,11 @@
 			    echo '<script> window.location="../manageManu.php"; </script>';
         }
       }
+    }else{
+      echo '<script> alert("Please Select some Manufacturers");</script>';
+      echo '<script> window.location="../manageManu.php"; </script>';
     }
+  }else{
+    echo '<script> window.location="../manageManu.php"; </script>';
   }
 ?>

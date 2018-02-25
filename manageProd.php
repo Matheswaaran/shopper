@@ -61,7 +61,7 @@
 				<div class="row">
 					<div class="span12">					
 						<h4 class="title"><span class="text"><strong>Manufacturers</strong></span></h4>
-						<form action="php/removeManu.php" method="post">
+						<form action="php/removeProd.php" method="post">
 							<fieldset>
 								<table class="table table-striped shop_attributes">
 									<tbody>
@@ -80,7 +80,7 @@
 										<?php $i = 1; while ($prod_arr = mysqli_fetch_array($prod_res)) { ?>
 										<tr>
 											<td><input type="checkbox" name="check[<?php $i ?>]" value="<?php echo $prod_arr["pid"] ?>"></td>
-											<td><img src="<?php echo $prod_arr["photo"]; ?>"></td>
+											<td style="width: 10%;height: 5%;"><img src="<?php echo $prod_arr["photo"]; ?>"></td>
 											<td><?php echo $prod_arr["product_name"]; ?></td>
 											<td><?php echo $prod_arr["brand"]; ?></td>
 											<td><?php echo $prod_arr["product_code"]; ?></td>
@@ -91,9 +91,15 @@
 											<td><?php echo $prod_arr["color"]; ?></td>
 										</tr>
 										<?php } ?>
+										<tr>
+											<div class="actions">
+												<td><input tabindex="9" class="btn btn-inverse large" type="submit" name="delete" value="Delete"></td>
+												<td><input type="text" name="product_avail" id="product_avail" class="input-small"></td>
+												<td><input tabindex="9" class="btn btn-inverse large" type="submit" name="update" value="Update Availability"></td>
+											</div>
+										</tr>
 									</tbody>
 								</table>
-								<div class="actions"><input tabindex="9" class="btn btn-inverse large" type="submit" name="delete" value="Delete"></div>
 							</fieldset>
 						</form>
 					</div>

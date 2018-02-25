@@ -10,7 +10,8 @@
 	      $file_type = $_FILES['product_img']['type'];
 	      $tmp = explode('.',$_FILES['product_img']['name']);
       	  $file_ext=strtolower(end($tmp));
-	      $file_dir = "/themes/images/products/";
+	      $file_upload = $_SERVER["DOCUMENT_ROOT"]."/shopper/themes/images/products/";
+	      $file_dir = "themes/images/products/";
 	      
 	      $expensions= array("jpeg","jpg","png");
 	      
@@ -19,7 +20,7 @@
 	      }
 	      
 	      if(empty($errors)==true) {
-	         move_uploaded_file($file_tmp,$file_dir.$product_code.".".$file_ext);
+	         move_uploaded_file($file_tmp,$file_upload.$product_code.".".$file_ext);
 	         $GLOBALS["product_img"] = $file_dir.$product_code.".".$file_ext;
 	         return true;
 	      }else{
