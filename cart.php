@@ -1,3 +1,15 @@
+<?php
+	include "php/includes/sessionUtils.php";
+
+	$session = new sessionUtils();
+
+	$session->checkSession($_SESSION["user_name"]);
+
+	$db = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_BASE) or die("Cannot Connect...");
+	
+	$bill_arr = mysqli_fetch_array(mysqli_query($db,"SELECT * FROM bills WHERE uid = ". $_SESSION["user_id"] .";"));
+	$prod_arr = mysqli_fetch_array(mysqli_query($db,"SELECT * FROM products WHERE pid = ". $bill_arr["pid"] .";"));
+?>
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -20,9 +32,9 @@
 		<script src="bootstrap/js/bootstrap.min.js"></script>				
 		<script src="themes/js/superfish.js"></script>	
 		<script src="themes/js/jquery.scrolltotop.js"></script>
-		<!--[if lt IE 9]
+		<!--[if lt IE 9]>			
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-			<script src="js/respond.min.js"></script>
+			<script src="themes/js/respond.min.js"></script>
 		<![endif]-->
 	</head>
     <body>		
@@ -33,8 +45,10 @@
 				<div class="span8">
 					<div class="account pull-right">
 						<ul class="user-menu">
-							<li><a href="adminLogin.html">Administrator Login</a></li>
-							<li><a href="index.html">Login</a></li>
+							<li><a href="home.php">Home</a></li>
+							<li><a href="cart.php">Your Order</a></li>
+							<li><a href="php/logout.php">Logout</a></li>
+							<li>Hi! <?php echo $_SESSION["user_name"]; ?></li>
 						</ul>
 					</div>
 				</div>
@@ -43,34 +57,30 @@
 		<div id="wrapper" class="container">
 			<section class="header_text sub">
 			<img class="pageBanner" src="themes/images/pageBanner.png" alt="New products" >
-				<h4><span>Administrator Login</span></h4>
-			</section>			
+				<h4><span>Your Orders</span></h4>
+			</section>
 			<section class="main-content">				
 				<div class="row">
-					<div class="span5">					
-						<h4 class="title"><span class="text"><strong>Login</strong> Form</span></h4>
-						<form action="php/adminLogin.php" method="post">
-							<input type="hidden" name="next" value="/">
-							<fieldset>
-								<div class="control-group">
-									<label class="control-label">Username</label>
-									<div class="controls">
-										<input type="text" placeholder="Enter your username" id="login_username" name="login_username" class="input-xlarge" required>
-									</div>
-								</div>
-								<div class="control-group">
-									<label class="control-label">Password</label>
-									<div class="controls">
-										<input type="password" placeholder="Enter your password" id="login_password" name="login_password" class="input-xlarge" required>
-									</div>
-								</div>
-								<div class="control-group">
-									<input tabindex="3" class="btn btn-inverse large" type="submit" value="Sign into your account">
-									<hr>
-									<p class="reset">Recover your <a tabindex="4" href="#" title="Recover your username or password">username or password</a></p>
-								</div>
-							</fieldset>
-						</form>				
+					<div class="span12">					
+						<h4 class="title"><span class="text"><strong>Your</strong> BILLS</span></h4>
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Remove</th>
+									<th>Image</th>
+									<th>Product Name</th>
+									<th>Total Amount</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><input type="checkbox" value="option1"></td>
+									<td style="width: 10%;height: 5%;"><img alt="" src="<?= $prod_arr["photo"]; ?>"></td>
+									<td ><?= $prod_arr["product_name"]; ?></td>
+									<td><?= $bill_arr["amount"]; ?></td>
+								</tr>
+							</tbody>
+						</table>					
 					</div>
 				</div>
 			</section>

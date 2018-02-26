@@ -6,6 +6,9 @@
 	$session->checkSession($_SESSION["user_name"]);
 
 	$db = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_BASE) or die("Cannot Connect...");
+	if (!isset($_GET["pid"])) {
+		echo '<script> window.location="home.php"; </script>';
+	}
 	$pid = $_GET["pid"];
 	$prod_arr = mysqli_fetch_array(mysqli_query($db,"SELECT * FROM products WHERE pid = '$pid'"));
 	$manu_arr = mysqli_fetch_array(mysqli_query($db,"SELECT * FROM manufacturer WHERE mid = " . $prod_arr["mid"] . ";"));
@@ -43,15 +46,12 @@
 		<div id="top-bar" class="container">
 			<div class="row">
 				<div class="span4">
-					<form method="POST" class="search_form">
-						<input type="text" class="input-block-level search-query" Placeholder="eg. T-sirt">
-					</form>
 				</div>
 				<div class="span8">
 					<div class="account pull-right">
 						<ul class="user-menu">
 							<li><a href="home.php">Home</a></li>
-							<li><a href="cart.html">Your Order</a></li>
+							<li><a href="cart.php">Your Order</a></li>
 							<li><a href="php/logout.php">Logout</a></li>
 							<li>Hi! <?php echo $_SESSION["user_name"]; ?></li>
 						</ul>
@@ -81,19 +81,7 @@
 								<h4><strong>Price: ₹<?= $prod_arr["price"]; ?></strong></h4>
 							</div>
 							<div class="span5">
-								<form class="form-inline">
-									<label class="checkbox">
-										<input type="checkbox" value=""> Option one is this and that
-									</label>
-									<br/>
-									<label class="checkbox">
-									  <input type="checkbox" value=""> Be sure to include why it's great
-									</label>
-									<p>&nbsp;</p>
-									<label>Qty:</label>
-									<input type="text" class="span1" placeholder="1">
-									<button class="btn btn-inverse" type="submit">Add to cart</button>
-								</form>
+								<a href="javascript://" class="btn btn-inverse large" onclick="placeOrder('<?= $_SESSION["user_id"]?>','<?= $prod_arr["pid"]?>','<?= $prod_arr["mid"]?>','<?= $prod_arr["price"]?>')">Place Order</a>
 							</div>							
 						</div>
 						<div class="row">
@@ -141,23 +129,18 @@
 		</div>
 		<script src="themes/js/common.js"></script>
 		<script>
-			$(function () {
-				$('#myTab a:first').tab('show');
-				$('#myTab a').click(function (e) {
-					e.preventDefault();
-					$(this).tab('show');
-				})
-			})
-			$(document).ready(function() {
-				$('.thumbnail').fancybox({
-					openEffect  : 'none',
-					closeEffect : 'none'
-				});
-				
-				$('#myCarousel-2').carousel({
-                    interval: 2500
-                });								
-			});
+			// JavaScript Document
+			function placeOrder(uid,pid,mid,amount){
+				$.ajax({                                      
+		      url: 'php/placeOrder.php',
+		      data: "uid="+uid+"&pid="+pid+"&mid="+mid+"&amount="+amount,
+			  	type:"POST",
+		      success: function(data){
+					  alert(data);
+					  location.reload();
+				  }
+			  });	
+			}
 		</script>
     </body>
 </html>

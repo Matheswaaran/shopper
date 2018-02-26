@@ -40,15 +40,12 @@
 		<div id="top-bar" class="container">
 			<div class="row">
 				<div class="span4">
-					<form method="POST" class="search_form">
-						<input type="text" class="input-block-level search-query" Placeholder="eg. T-sirt">
-					</form>
 				</div>
 				<div class="span8">
 					<div class="account pull-right">
 						<ul class="user-menu">
 							<li><a href="home.php">Home</a></li>
-							<li><a href="cart.html">Your Order</a></li>
+							<li><a href="cart.php">Your Order</a></li>
 							<li><a href="php/logout.php">Logout</a></li>
 							<li>Hi! <?php echo $_SESSION["user_name"]; ?></li>
 						</ul>
@@ -122,8 +119,8 @@
 													<div class="product-box">
 														<span class="sale_tag"></span>
 														<p><a href="product_detail.php?pid=<?=$products_arr["pid"];?>"><img src="<?php echo $products_arr["photo"]; ?>" alt="" /></a></p>
-														<a href="product_detail.html" class="title"><?= $products_arr["product_name"]?></a><br/>
-														<a href="products.html" class="category"><?=$products_arr["brand"]?></a>
+														<a href="product_detail.php?pid=<?=$products_arr["pid"];?>" class="title"><?= $products_arr["product_name"]?></a><br/>
+														<?=$products_arr["brand"]?>
 														<p class="price">₹<?=$products_arr["price"]?></p>
 													</div>
 												</li>
