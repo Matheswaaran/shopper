@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 25, 2018 at 11:18 PM
+-- Generation Time: Feb 26, 2018 at 09:25 AM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 5.6.33
 
@@ -48,6 +48,23 @@ INSERT INTO `admins` (`aid`, `username`, `password`, `created`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `bills`
+--
+
+CREATE TABLE IF NOT EXISTS `bills` (
+  `bid` int(11) NOT NULL AUTO_INCREMENT,
+  `uid` int(11) NOT NULL,
+  `pid` int(11) NOT NULL,
+  `mid` int(11) NOT NULL,
+  `amount` int(11) NOT NULL,
+  `delivered` int(11) NOT NULL,
+  `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`bid`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `manufacturer`
 --
 
@@ -59,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `manufacturer` (
   `phone_no` bigint(20) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`mid`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -82,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `color` varchar(100) NOT NULL,
   `created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`pid`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
