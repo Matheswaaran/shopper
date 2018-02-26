@@ -7,8 +7,10 @@
 
 	$db = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_BASE) or die("Cannot Connect...");
 	
-	$bill_arr = mysqli_fetch_array(mysqli_query($db,"SELECT * FROM bills WHERE uid = ". $_SESSION["user_id"] .";"));
-	$prod_arr = mysqli_fetch_array(mysqli_query($db,"SELECT * FROM products WHERE pid = ". $bill_arr["pid"] .";"));
+	$bill_on_arr = mysqli_fetch_array(mysqli_query($db,"SELECT * FROM bills WHERE uid = ". $_SESSION["user_id"] ." AND 	delivered = '0' ;"));
+	$bill_comp_arr = mysqli_fetch_array(mysqli_query($db,"SELECT * FROM bills WHERE uid = ". $_SESSION["user_id"] ." AND delivered = '1' ;"));
+	$prod_on_arr = mysqli_fetch_array(mysqli_query($db,"SELECT * FROM products WHERE pid = ". $bill_on_arr["pid"] .";"));
+	$prod_comp_arr = mysqli_fetch_array(mysqli_query($db,"SELECT * FROM products WHERE pid = ". $bill_comp_arr["pid"] .";"));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -62,11 +64,48 @@
 			<section class="main-content">				
 				<div class="row">
 					<div class="span12">					
-						<h4 class="title"><span class="text"><strong>Your</strong> BILLS</span></h4>
+						<h4 class="title"><span class="text"><strong>On-Going</strong> BILLS</span></h4>
+						<form action="php/removeBills.php" method="post">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Remove</th>
+										<th>Image</th>
+										<th>Product Name</th>
+										<th>Total Amount</th>
+										<th>Delivery Status</th>
+									</tr>
+								</thead>
+								<tbody>
+									<? $i = 1; while ($bill_on_arr) { ?>
+									<tr>
+										<td><input type="checkbox" name="check[<?php $i ?>]" value="<?php echo $bill_on_arr["bid"] ?>"></td>
+										<td style="width: 10%;height: 5%;"><img alt="" src="<?= $prod_on_arr["photo"]; ?>"></td>
+										<td ><?= $prod_on_arr["product_name"]; ?></td>
+										<td><?= $bill_on_arr["amount"]; ?></td>
+										<td><?php
+											if ($bill_on_arr["delivered"] == 1) {
+												echo "Delivered";
+											 }elseif ($bill_on_arr["delivered"] == 0) {
+											 	echo "Still Processing";
+											 }
+										?></td>
+									</tr>
+									<? } ?>
+								</tbody>
+							</table>
+							<div class="actions"><input tabindex="9" class="btn btn-inverse large" type="submit" name="remove" value="Remove"></div>
+						</form>					
+					</div>
+				</div>
+			</section>
+			<section class="main-content">				
+				<div class="row">
+					<div class="span12">					
+						<h4 class="title"><span class="text"><strong>Completed</strong> BILLS</span></h4>
 						<table class="table table-striped">
 							<thead>
 								<tr>
-									<th>Remove</th>
 									<th>Image</th>
 									<th>Product Name</th>
 									<th>Total Amount</th>
@@ -74,19 +113,20 @@
 								</tr>
 							</thead>
 							<tbody>
+								<? while ($bill_comp_arr) { ?>
 								<tr>
-									<td><input type="checkbox" value="option1"></td>
-									<td style="width: 10%;height: 5%;"><img alt="" src="<?= $prod_arr["photo"]; ?>"></td>
-									<td ><?= $prod_arr["product_name"]; ?></td>
-									<td><?= $bill_arr["amount"]; ?></td>
+									<td style="width: 10%;height: 5%;"><img alt="" src="<?= $prod_comp_arr["photo"]; ?>"></td>
+									<td ><?= $prod_comp_arr["product_name"]; ?></td>
+									<td><?= $bill_comp_arr["amount"]; ?></td>
 									<td><?php
-										if ($bill_arr["delivered"] == 1) {
+										if ($bill_comp_arr["delivered"] == 1) {
 											echo "Delivered";
 										 }else{
 										 	echo "Still Processing";
 										 }
 									?></td>
 								</tr>
+								<? } ?>
 							</tbody>
 						</table>					
 					</div>
