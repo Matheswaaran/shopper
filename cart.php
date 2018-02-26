@@ -70,6 +70,7 @@
 									<th>Image</th>
 									<th>Product Name</th>
 									<th>Total Amount</th>
+									<th>Delivery Status</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -78,6 +79,13 @@
 									<td style="width: 10%;height: 5%;"><img alt="" src="<?= $prod_arr["photo"]; ?>"></td>
 									<td ><?= $prod_arr["product_name"]; ?></td>
 									<td><?= $bill_arr["amount"]; ?></td>
+									<td><?php
+										if ($bill_arr["delivered"] == 1) {
+											echo "Delivered";
+										 }else{
+										 	echo "Still Processing";
+										 }
+									?></td>
 								</tr>
 							</tbody>
 						</table>					

@@ -5,10 +5,11 @@
 	$session->checkAdminSession($_SESSION["admin_username"]);
 
 	$db = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_BASE) or die("Cannot Connect...");
-	$select_prod = "SELECT * FROM products";
-	$prod_res = mysqli_query($db,$select_prod);
+	$bill_res = mysqli_query($db,"SELECT * FROM bills");
+	$bill_arr = mysqli_fetch_array($bill_res);
+	$prod_arr = mysqli_fetch_array(mysqli_query($db,"SELECT * FROM products WHERE pid = ". $bill_arr["pid"] .";"));
+	$user_arr = mysqli_fetch_array(mysqli_query($db,"SELECT * FROM users WHERE uid = ". $bill_arr["uid"] .";"));
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -31,9 +32,9 @@
 		<script src="bootstrap/js/bootstrap.min.js"></script>				
 		<script src="themes/js/superfish.js"></script>	
 		<script src="themes/js/jquery.scrolltotop.js"></script>
-		<!--[if lt IE 9]
+		<!--[if lt IE 9]>			
 			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-			<script src="js/respond.min.js"></script>
+			<script src="themes/js/respond.min.js"></script>
 		<![endif]-->
 	</head>
     <body>		
@@ -57,52 +58,45 @@
 		<div id="wrapper" class="container">
 			<section class="header_text sub">
 			<img class="pageBanner" src="themes/images/pageBanner.png" alt="New products" >
-			</section>			
+				<h4><span>Your Orders</span></h4>
+			</section>
 			<section class="main-content">				
 				<div class="row">
 					<div class="span12">					
-						<h4 class="title"><span class="text"><strong>Manufacturers</strong></span></h4>
-						<form action="php/removeProd.php" method="post">
-							<fieldset>
-								<table class="table table-striped shop_attributes">
-									<tbody>
+						<h4 class="title"><span class="text"><strong>Your</strong> BILLS</span></h4>
+						<form action="php/deliverProd.php" method="post">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Select</th>
+										<th>User</th>
+										<th>Image</th>
+										<th>Product Name</th>
+										<th>Total Amount</th>
+										<th>Delivery Status</th>
+									</tr>
+								</thead>
+								<tbody>
+									<? $i = 1; while ($bill_arr = mysqli_fetch_array($bill_res)) { ?>
 										<tr>
-											<th>Select</th>
-											<th>Photo</th>
-											<th>Name</th>
-											<th>Brand</th>
-											<th>Code</th>
-											<th>Price</th>
-											<th>Availability</th>
-											<th>Description</th>
-											<th>Size</th>
-											<th>Color</th>
+											<td><input type="checkbox" name="check[<?php $i ?>]" value="<?php echo $bill_arr["bid"] ?>"></td>
+											<td><?= $user_arr["username"]; ?></td>
+											<td style="width: 10%;height: 5%;"><img alt="" src="<?= $prod_arr["photo"]; ?>"></td>
+											<td ><?= $prod_arr["product_name"]; ?></td>
+											<td><?= $bill_arr["amount"]; ?></td>
+											<td><?php
+												if ($bill_arr["delivered"] == 1) {
+													echo "Delivered";
+												 }else{
+												 	echo "Still Processing";
+												 }
+											?></td>
 										</tr>
-										<?php $i = 1; while ($prod_arr = mysqli_fetch_array($prod_res)) { ?>
-										<tr>
-											<td><input type="checkbox" name="check[<?php $i ?>]" value="<?php echo $prod_arr["pid"] ?>"></td>
-											<td style="width: 10%;height: 5%;"><img src="<?php echo $prod_arr["photo"]; ?>"></td>
-											<td><?php echo $prod_arr["product_name"]; ?></td>
-											<td><?php echo $prod_arr["brand"]; ?></td>
-											<td><?php echo $prod_arr["product_code"]; ?></td>
-											<td><?php echo $prod_arr["price"]; ?></td>
-											<td><?php echo $prod_arr["availability"]; ?></td>
-											<td><?php echo $prod_arr["description"]; ?></td>
-											<td><?php echo $prod_arr["size"]; ?></td>
-											<td><?php echo $prod_arr["color"]; ?></td>
-										</tr>
-										<?php } ?>
-										<tr>
-											<div class="actions">
-												<td><input tabindex="9" class="btn btn-inverse large" type="submit" name="delete" value="Delete"></td>
-												<td><input type="text" name="product_avail" id="product_avail" class="input-small"></td>
-												<td><input tabindex="9" class="btn btn-inverse large" type="submit" name="update" value="Update Availability"></td>
-											</div>
-										</tr>
-									</tbody>
-								</table>
-							</fieldset>
-						</form>
+									<? } ?>
+								</tbody>
+							</table>
+							<div class="actions"><input tabindex="9" class="btn btn-inverse large" type="submit" name="delivered" value="Delivered"></div>
+						</form>					
 					</div>
 				</div>
 			</section>
