@@ -4,6 +4,11 @@
 	$session = new sessionUtils();
 
 	$session->checkSession($_SESSION["user_name"]);
+
+	$db = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_BASE) or die("Cannot Connect...");
+	$pid = $_GET["pid"];
+	$prod_arr = mysqli_fetch_array(mysqli_query($db,"SELECT * FROM products WHERE pid = '$pid'"));
+	$manu_arr = mysqli_fetch_array(mysqli_query($db,"SELECT * FROM manufacturer WHERE mid = " . $prod_arr["mid"] . ";"));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -64,30 +69,16 @@
 					<div class="span9">
 						<div class="row">
 							<div class="span4">
-								<a href="themes/images/ladies/1.jpg" class="thumbnail" data-fancybox-group="group1" title="Description 1"><img alt="" src="themes/images/ladies/1.jpg"></a>												
-								<ul class="thumbnails small">								
-									<li class="span1">
-										<a href="themes/images/ladies/2.jpg" class="thumbnail" data-fancybox-group="group1" title="Description 2"><img src="themes/images/ladies/2.jpg" alt=""></a>
-									</li>								
-									<li class="span1">
-										<a href="themes/images/ladies/3.jpg" class="thumbnail" data-fancybox-group="group1" title="Description 3"><img src="themes/images/ladies/3.jpg" alt=""></a>
-									</li>													
-									<li class="span1">
-										<a href="themes/images/ladies/4.jpg" class="thumbnail" data-fancybox-group="group1" title="Description 4"><img src="themes/images/ladies/4.jpg" alt=""></a>
-									</li>
-									<li class="span1">
-										<a href="themes/images/ladies/5.jpg" class="thumbnail" data-fancybox-group="group1" title="Description 5"><img src="themes/images/ladies/5.jpg" alt=""></a>
-									</li>
-								</ul>
+								<a href="themes/images/ladies/1.jpg" class="thumbnail" data-fancybox-group="group1" title="Description 1"><img alt="" src="<?=$prod_arr["photo"]?>"></a>
 							</div>
 							<div class="span5">
 								<address>
-									<strong>Brand:</strong> <span>Apple</span><br>
-									<strong>Product Code:</strong> <span>Product 14</span><br>
-									<strong>Reward Points:</strong> <span>0</span><br>
-									<strong>Availability:</strong> <span>Out Of Stock</span><br>								
+									<strong>Brand:</strong> <span><?= $prod_arr["brand"]; ?></span><br>
+									<strong>Product Code:</strong> <span><?= $prod_arr["product_code"]; ?></span><br>
+									<strong>Reward Points:</strong> <span><?= $prod_arr["reward_points"]; ?></span><br>
+									<strong>Availability:</strong> <span><?= $prod_arr["availability"]; ?></span><br>								
 								</address>									
-								<h4><strong>Price: $587.50</strong></h4>
+								<h4><strong>Price: ₹<?= $prod_arr["price"]; ?></strong></h4>
 							</div>
 							<div class="span5">
 								<form class="form-inline">
@@ -112,17 +103,17 @@
 									<li class=""><a href="#profile">Additional Information</a></li>
 								</ul>							 
 								<div class="tab-content">
-									<div class="tab-pane active" id="home">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem<br><br></div>
+									<div class="tab-pane active" id="home"><?= $prod_arr["description"]; ?><br><br></div>
 									<div class="tab-pane" id="profile">
 										<table class="table table-striped shop_attributes">	
 											<tbody>
 												<tr class="">
 													<th>Size</th>
-													<td>Large, Medium, Small, X-Large</td>
+													<td><?= $prod_arr["size"]; ?></td>
 												</tr>		
 												<tr class="alt">
 													<th>Colour</th>
-													<td>Orange, Yellow</td>
+													<td><?= $prod_arr["color"]; ?></td>
 												</tr>
 											</tbody>
 										</table>
@@ -135,10 +126,10 @@
 						<div class="block">
 							<ul class="nav nav-list below">
 								<li class="nav-header">MANUFACTURER</li>
-								<li><a href="products.html">Adidas</a></li>
-								<li><a href="products.html">Nike</a></li>
-								<li><a href="products.html">Dunlop</a></li>
-								<li><a href="products.html">Yamaha</a></li>
+								<li><strong>Name: </strong> <span><?= $manu_arr["name"]; ?></span><br></li>
+								<li><strong>Address: </strong> <span><?= $manu_arr["address"]; ?></span><br></li>
+								<li><strong>Email: </strong> <span><?= $manu_arr["email"]; ?></span><br></li>
+								<li><strong>Contact No.: </strong> <span><?= $manu_arr["phone_no"]; ?></span><br></li>
 							</ul>
 						</div>
 					</div>
