@@ -80,7 +80,15 @@
 								<div class="control-group">
 									<label class="control-label">Brand</label>
 									<div class="controls">
-										<input type="text" placeholder="Enter the Brand" id="product_brand" name="product_brand" class="input-xlarge" required>
+										<!-- <input type="text" placeholder="Enter the Brand" id="product_brand" name="product_brand" class="input-xlarge" required> -->
+										<select id="product_brand" name="product_brand" form="newProductForm">
+											<option value="NULL">-- Select the Brand --</option>
+											<option value="jute">Jute Bags</option>
+											<option value="terracota">Terracota Lamps</option>
+											<option value="pickels">Pickels</option>
+											<option value="cooking paste">Readymade Cooking Paste</option>
+											<option value="millets">Millets</option>
+										</select>
 									</div>
 								</div>
 								<div class="control-group">

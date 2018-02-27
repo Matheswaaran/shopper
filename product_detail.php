@@ -81,6 +81,8 @@
 								<h4><strong>Price: ₹<?= $prod_arr["price"]; ?></strong></h4>
 							</div>
 							<div class="span5">
+								<label>Qty:</label>
+ 								<input type="text" class="span1" placeholder="1" id="qty" name="qty"><br>
 								<a href="javascript://" class="btn btn-inverse large" onclick="placeOrder('<?= $_SESSION["user_id"]?>','<?= $prod_arr["pid"]?>','<?= $prod_arr["mid"]?>','<?= $prod_arr["price"]?>')">Place Order</a>
 							</div>							
 						</div>
@@ -130,16 +132,17 @@
 		<script src="themes/js/common.js"></script>
 		<script>
 			// JavaScript Document
-			function placeOrder(uid,pid,mid,amount){
+			function placeOrder(uid,pid,mid,amount,qty){
+				var qty = parseInt(document.getElementById('qty').value);
 				$.ajax({                                      
-		      url: 'php/placeOrder.php',
-		      data: "uid="+uid+"&pid="+pid+"&mid="+mid+"&amount="+amount,
-			  	type:"POST",
-		      success: function(data){
-					  alert(data);
-					  location.reload();
-				  }
-			  });	
+	        url: 'php/placeOrder.php',
+	        data: "uid="+uid+"&pid="+pid+"&mid="+mid+"&amount="+amount+"&qty="+qty,
+		  		type:"POST",
+	        success: function(data){
+						alert(data);
+						location.reload();
+					}
+		    });	
 			}
 		</script>
     </body>
