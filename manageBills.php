@@ -85,7 +85,7 @@
 											<td><?= $user_arr["username"]; ?></td>
 											<td style="width: 10%;height: 5%;"><img alt="" src="<?= $prod_arr["photo"]; ?>"></td>
 											<td ><?= $prod_arr["product_name"]; ?></td>
-											<td ><?= $prod_arr["quantity"]; ?></td>
+											<td ><?= $bill_arr["quantity"]; ?></td>
 											<td><?= $bill_arr["amount_per_item"]; ?></td>
 											<td><?= $bill_arr["total_amount"]; ?></td>
 											<td><?php

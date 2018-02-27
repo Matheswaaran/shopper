@@ -6,11 +6,20 @@
 	$session->checkSession($_SESSION["user_name"]);
 
 	$db = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_BASE) or die("Cannot Connect...");
+	$prod_on_flag = false;
+	$prod_comp_flag = false;
 	
 	$bill_on_arr = mysqli_fetch_array(mysqli_query($db,"SELECT * FROM bills WHERE uid = ". $_SESSION["user_id"] ." AND 	delivered = '0' ;"));
 	$bill_comp_arr = mysqli_fetch_array(mysqli_query($db,"SELECT * FROM bills WHERE uid = ". $_SESSION["user_id"] ." AND delivered = '1' ;"));
-	$prod_on_arr = mysqli_fetch_array(mysqli_query($db,"SELECT * FROM products WHERE pid = ". $bill_on_arr["pid"] .";"));
-	$prod_comp_arr = mysqli_fetch_array(mysqli_query($db,"SELECT * FROM products WHERE pid = ". $bill_comp_arr["pid"] .";"));
+	if (mysqli_query($db,"SELECT * FROM products WHERE pid = ". $bill_on_arr["pid"] .";")) {
+		$prod_on_arr = mysqli_fetch_array(mysqli_query($db,"SELECT * FROM products WHERE pid = ". $bill_on_arr["pid"] .";"));
+		$prod_on_flag = true;
+	}
+
+	if (mysqli_query($db,"SELECT * FROM products WHERE pid = ". $bill_comp_arr["pid"] .";") ) {
+		$prod_comp_arr = mysqli_fetch_array(mysqli_query($db,"SELECT * FROM products WHERE pid = ". $bill_comp_arr["pid"] .";"));
+		$prod_comp_flag = true;
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,26 +81,32 @@
 										<th>Remove</th>
 										<th>Image</th>
 										<th>Product Name</th>
+										<th>Quantity</th>
+										<th>Amount per Item</th>
 										<th>Total Amount</th>
 										<th>Delivery Status</th>
 									</tr>
 								</thead>
 								<tbody>
-									<? $i = 1; while ($bill_on_arr) { ?>
-									<tr>
-										<td><input type="checkbox" name="check[<?php $i ?>]" value="<?php echo $bill_on_arr["bid"] ?>"></td>
-										<td style="width: 10%;height: 5%;"><img alt="" src="<?= $prod_on_arr["photo"]; ?>"></td>
-										<td ><?= $prod_on_arr["product_name"]; ?></td>
-										<td><?= $bill_on_arr["amount"]; ?></td>
-										<td><?php
-											if ($bill_on_arr["delivered"] == 1) {
-												echo "Delivered";
-											 }elseif ($bill_on_arr["delivered"] == 0) {
-											 	echo "Still Processing";
-											 }
-										?></td>
-									</tr>
-									<? } ?>
+									<?php if ($prod_on_flag == true) { ?>
+										<? $i = 1; while ($bill_on_arr) { ?>
+										<tr>
+											<td><input type="checkbox" name="check[<?php $i ?>]" value="<?php echo $bill_on_arr["bid"] ?>"></td>
+											<td style="width: 10%;height: 5%;"><img alt="" src="<?= $prod_on_arr["photo"]; ?>"></td>
+											<td ><?= $prod_on_arr["product_name"]; ?></td>
+											<td><?= $bill_on_arr["quantity"]; ?></td>
+											<td><?= $bill_on_arr["amount_per_item"]; ?></td>
+											<td><?= $bill_on_arr["total_amount"]; ?></td>
+											<td><?php
+												if ($bill_on_arr["delivered"] == 1) {
+													echo "Delivered";
+												 }elseif ($bill_on_arr["delivered"] == 0) {
+												 	echo "Still Processing";
+												 }
+											?></td>
+										</tr>
+										<? } ?>
+									<?php } ?>
 								</tbody>
 							</table>
 							<div class="actions"><input tabindex="9" class="btn btn-inverse large" type="submit" name="remove" value="Remove"></div>
@@ -108,25 +123,31 @@
 								<tr>
 									<th>Image</th>
 									<th>Product Name</th>
+									<th>Quantity</th>
+									<th>Amount per Item</th>
 									<th>Total Amount</th>
 									<th>Delivery Status</th>
 								</tr>
 							</thead>
 							<tbody>
-								<? while ($bill_comp_arr) { ?>
-								<tr>
-									<td style="width: 10%;height: 5%;"><img alt="" src="<?= $prod_comp_arr["photo"]; ?>"></td>
-									<td ><?= $prod_comp_arr["product_name"]; ?></td>
-									<td><?= $bill_comp_arr["amount"]; ?></td>
-									<td><?php
-										if ($bill_comp_arr["delivered"] == 1) {
-											echo "Delivered";
-										 }else{
-										 	echo "Still Processing";
-										 }
-									?></td>
-								</tr>
-								<? } ?>
+								<?php if ($prod_comp_flag == true) { ?>
+									<? while ($bill_comp_arr) { ?>
+									<tr>
+										<td style="width: 10%;height: 5%;"><img alt="" src="<?= $prod_comp_arr["photo"]; ?>"></td>
+										<td ><?= $prod_comp_arr["product_name"]; ?></td>
+										<td><?= $bill_comp_arr["quantity"]; ?></td>
+										<td><?= $bill_comp_arr["amount_per_item"]; ?></td>
+										<td><?= $bill_comp_arr["total_amount"]; ?></td>
+										<td><?php
+											if ($bill_comp_arr["delivered"] == 1) {
+												echo "Delivered";
+											 }else{
+											 	echo "Still Processing";
+											 }
+										?>
+										</td>
+									</tr>
+									<?php } ?>
 							</tbody>
 						</table>					
 					</div>
