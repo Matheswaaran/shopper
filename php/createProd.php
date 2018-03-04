@@ -10,7 +10,7 @@
 	      $file_type = $_FILES['product_img']['type'];
 	      $tmp = explode('.',$_FILES['product_img']['name']);
       	  $file_ext=strtolower(end($tmp));
-	      $file_upload = $_SERVER["DOCUMENT_ROOT"]."/shopper/themes/images/products/";
+	      $file_upload = $_SERVER["DOCUMENT_ROOT"]."/fwdproject/shopper-master/themes/images/products/";
 	      $file_dir = "themes/images/products/";
 	      
 	      $expensions= array("jpeg","jpg","png");

@@ -5,8 +5,16 @@
 	$session->checkSession($_SESSION["user_name"]);
 
 	$db = mysqli_connect(DB_HOST,DB_USER,DB_PASS,DB_BASE) or die("Cannot connect to db..");
-	$products = "SELECT * FROM products";
-	$products_res = mysqli_query($db,$products);
+	$jute_qry = "SELECT * FROM products WHERE brand = 'jute'";
+	$jute_res = mysqli_query($db,$jute_qry);
+	$terracota_qry = "SELECT * FROM products WHERE brand = 'terracota'";
+	$terracota_res = mysqli_query($db,$terracota_qry);
+	$pickels_qry = "SELECT * FROM products WHERE brand = 'pickels'";
+	$pickels_res = mysqli_query($db,$pickels_qry);
+	$cooking_qry = "SELECT * FROM products WHERE brand = 'cooking paste'";
+	$cooking_res = mysqli_query($db,$cooking_qry);
+	$millets_qry = "SELECT * FROM products WHERE brand = 'millets'";
+	$millets_res = mysqli_query($db,$millets_qry);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -96,188 +104,181 @@
 					</div>	
 				</div>		
 			</section>
-			<?php while ($products_arr = mysqli_fetch_array($products_res)) { ?>
-				<?php if ($products_arr["brand"] == "jute" ) { ?>
-					<section class="main-content">
+			<section class="main-content">
+				<div class="row">
+					<div class="span12">													
 						<div class="row">
-							<div class="span12">													
-								<div class="row">
-									<div class="span12">
-										<h4 class="title">
-											<span class="pull-left"><span class="text"><span class="line"><strong>JUTE</strong> PRODUCTS</span></span></span>
-											<span class="pull-right">
-												<a class="left button" href="#myCarousel" data-slide="prev"></a><a class="right button" href="#myCarousel" data-slide="next"></a>
-											</span>
-										</h4>
-										<div id="myCarousel" class="myCarousel carousel slide">
-											<div class="carousel-inner">
-												<div class="active item">
-													<ul class="thumbnails">
+							<div class="span12">
+								<h4 class="title">
+									<span class="pull-left"><span class="text"><span class="line"><strong>JUTE</strong> PRODUCTS</span></span></span>
+								</h4>
+								<div id="myCarousel" class="myCarousel carousel slide">
+									<div class="carousel-inner">
+										<div class="active item">
+											<ul class="thumbnails">
+												<?php while ($jute_arr = mysqli_fetch_array($jute_res)) { ?>
+													<?php if ($jute_arr["brand"] == "jute" ) { ?>
 														<li class="span3">
 															<div class="product-box">
 																<span class="sale_tag"></span>
-																<p><a href="product_detail.php?pid=<?=$products_arr["pid"];?>"><img src="<?php echo $products_arr["photo"]; ?>" alt="" /></a></p>
-																<a href="product_detail.php?pid=<?=$products_arr["pid"];?>" class="title"><?= $products_arr["product_name"]?></a><br/>
-																<?=$products_arr["brand"]?>
-																<p class="price">₹<?=$products_arr["price"]?></p>
+																<p><a href="product_detail.php?pid=<?=$jute_arr["pid"];?>"><img src="<?php echo $jute_arr["photo"]; ?>" alt="" /></a></p>
+																<a href="product_detail.php?pid=<?=$jute_arr["pid"];?>" class="title"><?= $jute_arr["product_name"]?></a><br/>
+																<?=$jute_arr["brand"]?>
+																<p class="price">₹<?=$jute_arr["price"]?></p>
 															</div>
-														</li>
-													</ul>
-												</div>
-											</div>							
+														</li>					
+													<?php } ?>
+												<?php } ?>
+											</ul>
 										</div>
-									</div>						
+									</div>							
 								</div>
-								<br/>
-							</div>				
+							</div>						
 						</div>
-					</section>
-				<?php } ?>
-				<?php if ($products_arr["brand"] == "terracota" ) { ?>
-					<section class="main-content">
+						<br/>
+					</div>				
+				</div>
+			</section>
+			<section class="main-content">
+				<div class="row">
+					<div class="span12">													
 						<div class="row">
-							<div class="span12">													
-								<div class="row">
-									<div class="span12">
-										<h4 class="title">
-											<span class="pull-left"><span class="text"><span class="line"><strong>Terracota</strong> PRODUCTS</span></span></span>
-											<span class="pull-right">
-												<a class="left button" href="#myCarousel" data-slide="prev"></a><a class="right button" href="#myCarousel" data-slide="next"></a>
-											</span>
-										</h4>
-										<div id="myCarousel" class="myCarousel carousel slide">
-											<div class="carousel-inner">
-												<div class="active item">
-													<ul class="thumbnails">
+							<div class="span12">
+								<h4 class="title">
+									<span class="pull-left"><span class="text"><span class="line"><strong>terracota</strong> PRODUCTS</span></span></span>
+								</h4>
+								<div id="myCarousel" class="myCarousel carousel slide">
+									<div class="carousel-inner">
+										<div class="active item">
+											<ul class="thumbnails">
+												<?php while ($terracota_arr = mysqli_fetch_array($terracota_res)) { ?>
+													<?php if ($terracota_arr["brand"] == "terracota" ) { ?>
 														<li class="span3">
 															<div class="product-box">
 																<span class="sale_tag"></span>
-																<p><a href="product_detail.php?pid=<?=$products_arr["pid"];?>"><img src="<?php echo $products_arr["photo"]; ?>" alt="" /></a></p>
-																<a href="product_detail.php?pid=<?=$products_arr["pid"];?>" class="title"><?= $products_arr["product_name"]?></a><br/>
-																<?=$products_arr["brand"]?>
-																<p class="price">₹<?=$products_arr["price"]?></p>
+																<p><a href="product_detail.php?pid=<?=$terracota_arr["pid"];?>"><img src="<?php echo $terracota_arr["photo"]; ?>" alt="" /></a></p>
+																<a href="product_detail.php?pid=<?=$terracota_arr["pid"];?>" class="title"><?= $terracota_arr["product_name"]?></a><br/>
+																<?=$terracota_arr["brand"]?>
+																<p class="price">₹<?=$terracota_arr["price"]?></p>
 															</div>
-														</li>
-													</ul>
-												</div>
-											</div>							
+														</li>					
+													<?php } ?>
+												<?php } ?>
+											</ul>
 										</div>
-									</div>						
+									</div>							
 								</div>
-								<br/>
-							</div>				
+							</div>						
 						</div>
-					</section>
-				<?php } ?>
-				<?php if ($products_arr["brand"] == "pickels" ) { ?>
-					<section class="main-content">
+						<br/>
+					</div>				
+				</div>
+			</section>
+			<section class="main-content">
+				<div class="row">
+					<div class="span12">													
 						<div class="row">
-							<div class="span12">													
-								<div class="row">
-									<div class="span12">
-										<h4 class="title">
-											<span class="pull-left"><span class="text"><span class="line"><strong>Pickles</strong> PRODUCTS</span></span></span>
-											<span class="pull-right">
-												<a class="left button" href="#myCarousel" data-slide="prev"></a><a class="right button" href="#myCarousel" data-slide="next"></a>
-											</span>
-										</h4>
-										<div id="myCarousel" class="myCarousel carousel slide">
-											<div class="carousel-inner">
-												<div class="active item">
-													<ul class="thumbnails">
+							<div class="span12">
+								<h4 class="title">
+									<span class="pull-left"><span class="text"><span class="line"><strong>pickels</strong> PRODUCTS</span></span></span>
+								</h4>
+								<div id="myCarousel" class="myCarousel carousel slide">
+									<div class="carousel-inner">
+										<div class="active item">
+											<ul class="thumbnails">
+												<?php while ($pickels_arr = mysqli_fetch_array($pickels_res)) { ?>
+													<?php if ($pickels_arr["brand"] == "pickels" ) { ?>
 														<li class="span3">
 															<div class="product-box">
 																<span class="sale_tag"></span>
-																<p><a href="product_detail.php?pid=<?=$products_arr["pid"];?>"><img src="<?php echo $products_arr["photo"]; ?>" alt="" /></a></p>
-																<a href="product_detail.php?pid=<?=$products_arr["pid"];?>" class="title"><?= $products_arr["product_name"]?></a><br/>
-																<?=$products_arr["brand"]?>
-																<p class="price">₹<?=$products_arr["price"]?></p>
+																<p><a href="product_detail.php?pid=<?=$pickels_arr["pid"];?>"><img src="<?php echo $pickels_arr["photo"]; ?>" alt="" /></a></p>
+																<a href="product_detail.php?pid=<?=$pickels_arr["pid"];?>" class="title"><?= $pickels_arr["product_name"]?></a><br/>
+																<?=$pickels_arr["brand"]?>
+																<p class="price">₹<?=$pickels_arr["price"]?></p>
 															</div>
-														</li>
-													</ul>
-												</div>
-											</div>							
+														</li>					
+													<?php } ?>
+												<?php } ?>
+											</ul>
 										</div>
-									</div>						
+									</div>							
 								</div>
-								<br/>
-							</div>				
+							</div>						
 						</div>
-					</section>
-				<?php } ?>
-				<?php if ($products_arr["brand"] == "cooking paste" ) { ?>
-					<section class="main-content">
+						<br/>
+					</div>				
+				</div>
+			</section>
+			<section class="main-content">
+				<div class="row">
+					<div class="span12">													
 						<div class="row">
-							<div class="span12">													
-								<div class="row">
-									<div class="span12">
-										<h4 class="title">
-											<span class="pull-left"><span class="text"><span class="line"><strong>Cooking Paste</strong> PRODUCTS</span></span></span>
-											<span class="pull-right">
-												<a class="left button" href="#myCarousel" data-slide="prev"></a><a class="right button" href="#myCarousel" data-slide="next"></a>
-											</span>
-										</h4>
-										<div id="myCarousel" class="myCarousel carousel slide">
-											<div class="carousel-inner">
-												<div class="active item">
-													<ul class="thumbnails">
+							<div class="span12">
+								<h4 class="title">
+									<span class="pull-left"><span class="text"><span class="line"><strong>cooking paste</strong> PRODUCTS</span></span></span>
+								</h4>
+								<div id="myCarousel" class="myCarousel carousel slide">
+									<div class="carousel-inner">
+										<div class="active item">
+											<ul class="thumbnails">
+												<?php while ($paste_arr = mysqli_fetch_array($cooking_res)) { ?>
+													<?php if ($paste_arr["brand"] == "cooking paste" ) { ?>
 														<li class="span3">
 															<div class="product-box">
 																<span class="sale_tag"></span>
-																<p><a href="product_detail.php?pid=<?=$products_arr["pid"];?>"><img src="<?php echo $products_arr["photo"]; ?>" alt="" /></a></p>
-																<a href="product_detail.php?pid=<?=$products_arr["pid"];?>" class="title"><?= $products_arr["product_name"]?></a><br/>
-																<?=$products_arr["brand"]?>
-																<p class="price">₹<?=$products_arr["price"]?></p>
+																<p><a href="product_detail.php?pid=<?=$paste_arr["pid"];?>"><img src="<?php echo $paste_arr["photo"]; ?>" alt="" /></a></p>
+																<a href="product_detail.php?pid=<?=$paste_arr["pid"];?>" class="title"><?= $paste_arr["product_name"]?></a><br/>
+																<?=$paste_arr["brand"]?>
+																<p class="price">₹<?=$paste_arr["price"]?></p>
 															</div>
-														</li>
-													</ul>
-												</div>
-											</div>							
+														</li>					
+													<?php } ?>
+												<?php } ?>
+											</ul>
 										</div>
-									</div>						
+									</div>							
 								</div>
-								<br/>
-							</div>				
+							</div>						
 						</div>
-					</section>
-				<?php } ?>
-				<?php if ($products_arr["brand"] == "millets" ) { ?>
-					<section class="main-content">
+						<br/>
+					</div>				
+				</div>
+			</section>
+			<section class="main-content">
+				<div class="row">
+					<div class="span12">													
 						<div class="row">
-							<div class="span12">													
-								<div class="row">
-									<div class="span12">
-										<h4 class="title">
-											<span class="pull-left"><span class="text"><span class="line"><strong>Millets</strong> PRODUCTS</span></span></span>
-											<span class="pull-right">
-												<a class="left button" href="#myCarousel" data-slide="prev"></a><a class="right button" href="#myCarousel" data-slide="next"></a>
-											</span>
-										</h4>
-										<div id="myCarousel" class="myCarousel carousel slide">
-											<div class="carousel-inner">
-												<div class="active item">
-													<ul class="thumbnails">
+							<div class="span12">
+								<h4 class="title">
+									<span class="pull-left"><span class="text"><span class="line"><strong>millets</strong> PRODUCTS</span></span></span>
+								</h4>
+								<div id="myCarousel" class="myCarousel carousel slide">
+									<div class="carousel-inner">
+										<div class="active item">
+											<ul class="thumbnails">
+												<?php while ($millets_arr = mysqli_fetch_array($millets_res)) { ?>
+													<?php if ($millets_arr["brand"] == "millets" ) { ?>
 														<li class="span3">
 															<div class="product-box">
 																<span class="sale_tag"></span>
-																<p><a href="product_detail.php?pid=<?=$products_arr["pid"];?>"><img src="<?php echo $products_arr["photo"]; ?>" alt="" /></a></p>
-																<a href="product_detail.php?pid=<?=$products_arr["pid"];?>" class="title"><?= $products_arr["product_name"]?></a><br/>
-																<?=$products_arr["brand"]?>
-																<p class="price">₹<?=$products_arr["price"]?></p>
+																<p><a href="product_detail.php?pid=<?=$millets_arr["pid"];?>"><img src="<?php echo $millets_arr["photo"]; ?>" alt="" /></a></p>
+																<a href="product_detail.php?pid=<?=$millets_arr["pid"];?>" class="title"><?= $millets_arr["product_name"]?></a><br/>
+																<?=$millets_arr["brand"]?>
+																<p class="price">₹<?=$millets_arr["price"]?></p>
 															</div>
-														</li>
-													</ul>
-												</div>
-											</div>							
+														</li>					
+													<?php } ?>
+												<?php } ?>
+											</ul>
 										</div>
-									</div>						
+									</div>							
 								</div>
-								<br/>
-							</div>				
+							</div>						
 						</div>
-					</section>
-				<?php } ?>
-			<?php } ?>
+						<br/>
+					</div>				
+				</div>
+			</section>
 			<section id="copyright">
 				<span>Copyright 2013 bootstrappage template  All right reserved.</span>
 			</section>

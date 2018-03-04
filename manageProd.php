@@ -48,6 +48,7 @@
 							<li><a href="manageManu.php">Manufacturers</a></li>
 							<li><a href="manageProd.php">Products</a></li>
 							<li><a href="manageBills.php">Bills</a></li>
+							<li><a href="manageImg.php">Images</a></li>
 							<li><a href="php/logout.php">Logout</a></li>
 						</ul>
 					</div>

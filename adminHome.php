@@ -48,6 +48,7 @@
 							<li><a href="manageManu.php">Manufacturers</a></li>
 							<li><a href="manageProd.php">Products</a></li>
 							<li><a href="manageBills.php">Bills</a></li>
+							<li><a href="manageImg.php">Images</a></li>
 							<li><a href="php/logout.php">Logout</a></li>
 						</ul>
 					</div>
@@ -83,8 +84,8 @@
 										<!-- <input type="text" placeholder="Enter the Brand" id="product_brand" name="product_brand" class="input-xlarge" required> -->
 										<select id="product_brand" name="product_brand" form="newProductForm">
 											<option value="NULL">-- Select the Brand --</option>
-											<option value="jute">Jute Bags</option>
-											<option value="terracota">Terracota Lamps</option>
+											<option value="jute">Jute Products</option>
+											<option value="terracota">Terracota Products</option>
 											<option value="pickels">Pickels</option>
 											<option value="cooking paste">Readymade Cooking Paste</option>
 											<option value="millets">Millets</option>
