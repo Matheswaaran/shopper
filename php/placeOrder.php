@@ -1,7 +1,6 @@
 <?php
 	include "includes/config.php";
-	include "https://shopper-master.000webhostapp.com/mail.php";
-	
+
 	if ($_SERVER["REQUEST_METHOD"] == "POST"){
 		$uid= $_POST["uid"];
 		$pid=$_POST["pid"];
@@ -9,6 +8,7 @@
 		$amount=$_POST["amount"];
 		$qty = $_POST["qty"];
 		$total = $qty * $amount;
+		$response = array();
 
 		$db = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_BASE) or die("Cannot Connect...");
 		
@@ -32,19 +32,23 @@
 		if ($select_res = mysqli_query($db,$select_query)) {
 	        if (mysqli_num_rows($select_res) == 0){
 	            if (mysqli_query($db,$order_query)){
-	            	if (mysqli_query($db,$update_avail_query) && sendMail($user_arr["email"],$mail_sub,$mail_msg)) {
-	            		echo "Order placed successfully.";
+	            	if (mysqli_query($db,$update_avail_query)) {
+	            		$response["status"] = "Order placed successfully.";
+	            		$response["emailid"] = $user_arr["email"];
+	            		$response["subject"] = $mail_sub;
+	            		$response["message"] = $mail_msg;
 	            	}else{
-	            		echo "Error! Cannot update availability.";
+	            		$response["status"] = "Error! Cannot update availability.";
 	            	}
 	            }else{
-	                echo "Order falied.";
+	                $response["status"] = "Order falied.";
 	            }
 	        }else{
-	            echo "Order Already Exists. Please wait till it is delivered.";
+	            $response["status"] = "Order Already Exists. Please wait till it is delivered.";
 	        }
 	    }else{
-	    	echo "Error! Plz try again";
+	    	$response["status"] = "Error! Plz try again";
 	    }
 	}
+	echo json_encode($response);
 ?>

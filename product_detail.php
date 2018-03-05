@@ -135,14 +135,28 @@
 			function placeOrder(uid,pid,mid,amount,qty){
 				var qty = parseInt(document.getElementById('qty').value);
 				$.ajax({                                      
-	        url: 'php/placeOrder.php',
-	        data: "uid="+uid+"&pid="+pid+"&mid="+mid+"&amount="+amount+"&qty="+qty,
-		  		type:"POST",
-	        success: function(data){
-						alert(data);
-						location.reload();
+			        url: 'php/placeOrder.php',
+			        data: "uid="+uid+"&pid="+pid+"&mid="+mid+"&amount="+amount+"&qty="+qty,
+				  	type: "POST",
+				  	dataType: "json",
+			        success: function(data){
+			        	console.log(data);
+			        	sendMail(data.emailid,data.subject,data.message);
 					}
-		    });	
+				});	
+			}
+
+			function sendMail(email,subject,message){
+				$.ajax({
+					url: 'https://shopper-master.000webhostapp.com/mail.php',
+					data: "email="+email+"&subject="+subject+"&message="+message,
+					type: "POST",
+    				crossDomain: true,
+					dataType: "json",
+					success: function(response){
+						console.log(response.status);
+					}
+				});
 			}
 		</script>
     </body>
