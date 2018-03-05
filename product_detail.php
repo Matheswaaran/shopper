@@ -140,8 +140,8 @@
 				  	type: "POST",
 				  	dataType: "json",
 			        success: function(data){
-			        	console.log(data);
 			        	sendMail(data.emailid,data.subject,data.message);
+			        	alert(data.status);
 					}
 				});	
 			}

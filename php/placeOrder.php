@@ -22,7 +22,7 @@
 		$user_arr = mysqli_fetch_array(mysqli_query($db,"SELECT * FROM users WHERE uid = '$uid'"));
 
 		$mail_sub = "Online Shopping Mail";
-		$mail_msg = "The order has been placed successfully." . PHP_EOL . "You have placed an order of " . $qty . "quantites of " . $prod_arr["product_name"] . "." . PHP_EOL . "Total Bill amount is " . $total . PHP_EOL;
+		$mail_msg = "The order has been placed successfully." . PHP_EOL . PHP_EOL  . "You have placed an order of " . $qty . " quantites of " . $prod_arr["product_name"] . "." . PHP_EOL . PHP_EOL  . "Total Bill amount is ₹" . $total . PHP_EOL;
 
 		if ($qty > $prod_arr["availability"]) {
 			echo "Enter a quantity that is equal to or less than the availability.";
