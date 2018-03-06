@@ -14,7 +14,7 @@
 		
 		$select_query = "SELECT * FROM users WHERE username = '$reg_username'";
 		
-		$register_query = "INSERT INTO users(username,email,password) VALUES ('$reg_username','$reg_email','$reg_password')";
+		$register_query = "INSERT INTO users(username,email,phone_no,password) VALUES ('$reg_username','$reg_email','$reg_phone','$reg_password')";
 		
 		$db = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_BASE) or die("Cannot Connect...");
 
