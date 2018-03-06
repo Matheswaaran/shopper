@@ -71,6 +71,7 @@
 									<tr>
 										<th>Select</th>
 										<th>User</th>
+										<th>Contact No.</th>
 										<th>Image</th>
 										<th>Product Name</th>
 										<th>Quantity</th>
@@ -84,6 +85,7 @@
 										<tr>
 											<td><input type="checkbox" name="check[<?php $i ?>]" value="<?php echo $bill_arr["bid"] ?>"></td>
 											<td><?= $user_arr["username"]; ?></td>
+											<td><?= $user_arr["phone_no"]; ?></td>
 											<td style="width: 10%;height: 5%;"><img alt="" src="<?= $prod_arr["photo"]; ?>"></td>
 											<td ><?= $prod_arr["product_name"]; ?></td>
 											<td ><?= $bill_arr["quantity"]; ?></td>

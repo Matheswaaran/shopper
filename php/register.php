@@ -9,6 +9,7 @@
 		$reg_username= $_POST["reg_username"];
 		$reg_email=$_POST["reg_email"];
 		$reg_password=$_POST["reg_password"];
+		$reg_phone=$_POST["reg_phone"];
 //		$reg_password = $session->encryptIt($reg_password);
 		
 		$select_query = "SELECT * FROM users WHERE username = '$reg_username'";
