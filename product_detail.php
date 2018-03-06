@@ -69,7 +69,7 @@
 					<div class="span9">
 						<div class="row">
 							<div class="span4">
-								<a href="themes/images/ladies/1.jpg" class="thumbnail" data-fancybox-group="group1" title="Description 1"><img alt="" src="<?=$prod_arr["photo"]?>"></a>
+								<a href="<?=$prod_arr["photo"]?>" class="thumbnail" data-fancybox-group="group1" title="Description 1"><img alt="<?=$prod_arr["product_name"]?>" src="<?=$prod_arr["photo"]?>"></a>
 							</div>
 							<div class="span5">
 								<address>
